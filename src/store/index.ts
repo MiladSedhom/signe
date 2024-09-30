@@ -9,11 +9,9 @@ export const store = createStore<State>({
 		}
 	},
 	mutations: {
-		addFolder(state: State, id: string) {
-			state.activeFolders.add(id)
-		},
-		removeFolder(state: State, id: string) {
-			state.activeFolders.delete(id)
+		toggleFolder(state: State, id: string) {
+			if (state.activeFolders.has(id)) state.activeFolders.delete(id)
+			else state.activeFolders.add(id)
 		},
 	},
 })
