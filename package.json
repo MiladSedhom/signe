@@ -13,7 +13,8 @@
   "dependencies": {
     "@unocss/reset": "^0.63.1",
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@iconify-json/tabler": "^1.2.4",
