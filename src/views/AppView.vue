@@ -7,7 +7,7 @@ import { useStore } from '@/store'
 const store = useStore()
 
 const activeFolders = computed(() => {
-	return folders.filter(f => store.state.activeFolders.has(f.id))
+	return folders.value.filter(f => store.state.activeFolders.has(f.id))
 })
 </script>
 

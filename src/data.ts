@@ -1,6 +1,7 @@
 import type { Bookmark, Folder } from './types'
+import { useLocalStorage } from '@vueuse/core'
 
-export const bookmarks: Bookmark[] = [
+const defaultBookmarks: Bookmark[] = [
 	{
 		id: 'b1',
 		name: 'Facebook',
@@ -21,7 +22,7 @@ export const bookmarks: Bookmark[] = [
 	},
 ]
 
-export const folders: Folder[] = [
+const defaultFolders: Folder[] = [
 	{
 		id: 'f1',
 		name: 'blogs',
@@ -33,3 +34,6 @@ export const folders: Folder[] = [
 		parentId: 'f1',
 	},
 ]
+
+export const bookmarks = useLocalStorage('bookmarks', defaultBookmarks)
+export const folders = useLocalStorage('folders', defaultFolders)
