@@ -7,19 +7,22 @@ import type { Bookmark } from '@/types'
 import Modal from '@/components/Modal.vue'
 import BookmarkForm from '@/components/BookmarkForm.vue'
 
-const props = defineProps({ folderId: String, folderName: String })
+const props = defineProps({ folderId: { type: String, required: true }, folderName: String })
 
 const items = computed(() => {
 	return [...folders.value, ...bookmarks.value].filter(item => item.parentId === props.folderId) as Bookmark[]
 })
 
-const show = ref(false)
-
-const handleAdd = () => {
-	show.value = true
+const handleSubmit = (b: any) => {
+	if (b.isFolder) folders.value.push({ name: b.name, parentId: props.folderId, id: crypto.randomUUID() })
+	else bookmarks.value.push({ url: b.url, name: b.name, parentId: props.folderId, id: crypto.randomUUID() })
 }
 
-const hide = () => (show.value = false)
+const show = ref(false)
+const showModal = () => {
+	show.value = true
+}
+const hideModal = () => (show.value = false)
 </script>
 
 <template>
@@ -30,11 +33,11 @@ const hide = () => (show.value = false)
 				<PanelFolder v-else :name="i.name" :id="i.id" />
 			</li>
 		</ul>
-		<Modal :show @close-modal="hide">
-			<BookmarkForm :folderId="props.folderId" @close-modal="hide" />
+		<Modal :show @close-modal="hideModal">
+			<BookmarkForm :folderId="props.folderId" @form-submit="handleSubmit" />
 		</Modal>
 		<div>
-			<button @click="handleAdd">add</button>
+			<button @click="showModal">add</button>
 		</div>
 	</div>
 </template>
