@@ -15,7 +15,7 @@ const items = computed(() => {
 <template>
 	<div class="p-x-4 p-y-8 bg-primary border-2 h-full w-75 border-fg rounded-2 shrink-0">
 		<ul>
-			<li v-for="i in items">
+			<li v-for="i in items" class="hover:bg-fg hover:text-primary rounded">
 				<PanelLink v-if="i.url" :name="i.name" :url="i.url" />
 				<PanelFolder v-else :name="i.name" :id="i.id" />
 			</li>
