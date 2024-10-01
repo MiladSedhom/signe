@@ -1,16 +1,25 @@
 <script setup lang="ts">
+import { bookmarks, folders } from '@/data'
 import { ref } from 'vue'
 
+const props = defineProps({ folderId: { type: String, required: true } })
+const emit = defineEmits(['form-submit'])
+
+const isFolder = ref(false)
 const name = ref('')
 const url = ref('')
 
-const isFolder = ref(false)
+const handleSubmit = () => {
+	if (isFolder) folders.value.push({ name: name.value, parentId: props.folderId, id: crypto.randomUUID() })
+	else bookmarks.value.push({ url: url.value, name: name.value, parentId: props.folderId, id: crypto.randomUUID() })
+	emit('form-submit')
+}
 </script>
 
 <template>
 	<form
 		class="bg-secondary border-2 border-fg w-90 flex flex-col items-center gap-4 p-4 rounded"
-		@submit.prevent="$emit('form-submit', { isFolder, name, url })"
+		@submit.prevent="handleSubmit"
 	>
 		<div class="w-full flex gap-10">
 			<label for="type" class="font-500">Folder:</label>

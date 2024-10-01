@@ -13,11 +13,6 @@ const items = computed(() => {
 	return [...folders.value, ...bookmarks.value].filter(item => item.parentId === props.folderId) as Bookmark[]
 })
 
-const handleSubmit = (b: any) => {
-	if (b.isFolder) folders.value.push({ name: b.name, parentId: props.folderId, id: crypto.randomUUID() })
-	else bookmarks.value.push({ url: b.url, name: b.name, parentId: props.folderId, id: crypto.randomUUID() })
-}
-
 const show = ref(false)
 const showModal = () => {
 	show.value = true
@@ -34,7 +29,7 @@ const hideModal = () => (show.value = false)
 			</li>
 		</ul>
 		<Modal :show @close-modal="hideModal">
-			<BookmarkForm :folderId="props.folderId" @form-submit="handleSubmit" />
+			<BookmarkForm :folderId="props.folderId" @form-submit="hideModal" />
 		</Modal>
 		<div>
 			<button @click="showModal">add</button>
